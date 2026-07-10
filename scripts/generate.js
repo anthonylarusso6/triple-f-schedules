@@ -20,6 +20,17 @@ const utc = d => '' + d.getUTCFullYear() + pad(d.getUTCMonth() + 1) + pad(d.getU
 const icsEsc = s => String(s || '').replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n');
 
 (async () => {
+  // First tell the station to re-read the live schedule sheet, so any change
+  // Kevin made shows up without anyone clicking Send. Best effort: if it fails,
+  // we still serve whatever the station last stored.
+  const REFRESH_URL = EXPORT_URL.replace('export=', 'refresh=');
+  if (REFRESH_URL !== EXPORT_URL) {
+    try {
+      const r = await fetch(REFRESH_URL, { redirect: 'follow' });
+      console.log('refresh:', (await r.text()).slice(0, 80));
+    } catch (err) { console.log('refresh failed (using last stored):', err.message); }
+  }
+
   // The station can be moody — retry a few times before giving up.
   let text = null;
   for (let i = 1; i <= 5 && !text; i++) {
