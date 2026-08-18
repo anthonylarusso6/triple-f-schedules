@@ -9,7 +9,7 @@ if (!EXPORT_URL) { console.error('EXPORT_URL env var missing'); process.exit(1);
 
 const COACHES = {
   ant: 'Ant', kevin: 'Kevin', jackson: 'Jackson', rich: 'Rich', dstone: 'D-Stone',
-  adoriyan: 'Adoriyan', jake: 'Jake', ben: 'Ben', lee: 'Lee', evan: 'Evan',
+  adoriyan: 'Adoriyan', jake: 'Jake', ben: 'Ben', lee: 'Lee', evan: 'Evan', jude: 'Jude',
 };
 const LOCATION = '4900 Guinn Rd, Knoxville, TN';
 const ROOT = path.join(__dirname, '..');
